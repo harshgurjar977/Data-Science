@@ -1,0 +1,696 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Untitled3.ipynb",
+      "provenance": [],
+      "authorship_tag": "ABX9TyNulAcqo202klbYtTe6fytK",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/harshgurjar977/Data-Science/blob/main/project%201--iris%20flower%20classification\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": null,
+      "metadata": {
+        "id": "dSydRi3sg9ye"
+      },
+      "outputs": [],
+      "source": [
+        "import numpy as np\n",
+        "import matplotlib.pyplot as plt\n"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from sklearn.datasets import load_iris"
+      ],
+      "metadata": {
+        "id": "luiOeOebhmPY"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        " dataset = load_iris()"
+      ],
+      "metadata": {
+        "id": "R406v8yVhuoM"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        " print(dataset.DESCR)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "-UYeBFEOh0ID",
+        "outputId": "91427c9e-fb4d-45c9-81ae-f1dfaf9c4aaa"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            ".. _iris_dataset:\n",
+            "\n",
+            "Iris plants dataset\n",
+            "--------------------\n",
+            "\n",
+            "**Data Set Characteristics:**\n",
+            "\n",
+            "    :Number of Instances: 150 (50 in each of three classes)\n",
+            "    :Number of Attributes: 4 numeric, predictive attributes and the class\n",
+            "    :Attribute Information:\n",
+            "        - sepal length in cm\n",
+            "        - sepal width in cm\n",
+            "        - petal length in cm\n",
+            "        - petal width in cm\n",
+            "        - class:\n",
+            "                - Iris-Setosa\n",
+            "                - Iris-Versicolour\n",
+            "                - Iris-Virginica\n",
+            "                \n",
+            "    :Summary Statistics:\n",
+            "\n",
+            "    ============== ==== ==== ======= ===== ====================\n",
+            "                    Min  Max   Mean    SD   Class Correlation\n",
+            "    ============== ==== ==== ======= ===== ====================\n",
+            "    sepal length:   4.3  7.9   5.84   0.83    0.7826\n",
+            "    sepal width:    2.0  4.4   3.05   0.43   -0.4194\n",
+            "    petal length:   1.0  6.9   3.76   1.76    0.9490  (high!)\n",
+            "    petal width:    0.1  2.5   1.20   0.76    0.9565  (high!)\n",
+            "    ============== ==== ==== ======= ===== ====================\n",
+            "\n",
+            "    :Missing Attribute Values: None\n",
+            "    :Class Distribution: 33.3% for each of 3 classes.\n",
+            "    :Creator: R.A. Fisher\n",
+            "    :Donor: Michael Marshall (MARSHALL%PLU@io.arc.nasa.gov)\n",
+            "    :Date: July, 1988\n",
+            "\n",
+            "The famous Iris database, first used by Sir R.A. Fisher. The dataset is taken\n",
+            "from Fisher's paper. Note that it's the same as in R, but not as in the UCI\n",
+            "Machine Learning Repository, which has two wrong data points.\n",
+            "\n",
+            "This is perhaps the best known database to be found in the\n",
+            "pattern recognition literature.  Fisher's paper is a classic in the field and\n",
+            "is referenced frequently to this day.  (See Duda & Hart, for example.)  The\n",
+            "data set contains 3 classes of 50 instances each, where each class refers to a\n",
+            "type of iris plant.  One class is linearly separable from the other 2; the\n",
+            "latter are NOT linearly separable from each other.\n",
+            "\n",
+            ".. topic:: References\n",
+            "\n",
+            "   - Fisher, R.A. \"The use of multiple measurements in taxonomic problems\"\n",
+            "     Annual Eugenics, 7, Part II, 179-188 (1936); also in \"Contributions to\n",
+            "     Mathematical Statistics\" (John Wiley, NY, 1950).\n",
+            "   - Duda, R.O., & Hart, P.E. (1973) Pattern Classification and Scene Analysis.\n",
+            "     (Q327.D83) John Wiley & Sons.  ISBN 0-471-22361-1.  See page 218.\n",
+            "   - Dasarathy, B.V. (1980) \"Nosing Around the Neighborhood: A New System\n",
+            "     Structure and Classification Rule for Recognition in Partially Exposed\n",
+            "     Environments\".  IEEE Transactions on Pattern Analysis and Machine\n",
+            "     Intelligence, Vol. PAMI-2, No. 1, 67-71.\n",
+            "   - Gates, G.W. (1972) \"The Reduced Nearest Neighbor Rule\".  IEEE Transactions\n",
+            "     on Information Theory, May 1972, 431-433.\n",
+            "   - See also: 1988 MLC Proceedings, 54-64.  Cheeseman et al\"s AUTOCLASS II\n",
+            "     conceptual clustering system finds 3 classes in the data.\n",
+            "   - Many, many more ...\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "X = dataset.data"
+      ],
+      "metadata": {
+        "id": "5VCeaWzSibq1"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "y = dataset.target"
+      ],
+      "metadata": {
+        "id": "nox-tNKKibv4"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "y"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "fBdxbBOCib1O",
+        "outputId": "36f87b8a-93d8-436d-9927-ed9eed9238e0"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\n",
+              "       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,\n",
+              "       0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,\n",
+              "       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,\n",
+              "       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,\n",
+              "       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,\n",
+              "       2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 49
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "X"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "6GjZuOoWicAp",
+        "outputId": "85ed93ae-693a-4f12-e2ae-92a77caf75c9"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "array([[-9.00681170e-01,  1.01900435e+00, -1.34022653e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-1.14301691e+00, -1.31979479e-01, -1.34022653e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-1.38535265e+00,  3.28414053e-01, -1.39706395e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-1.50652052e+00,  9.82172869e-02, -1.28338910e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-1.02184904e+00,  1.24920112e+00, -1.34022653e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-5.37177559e-01,  1.93979142e+00, -1.16971425e+00,\n",
+              "        -1.05217993e+00],\n",
+              "       [-1.50652052e+00,  7.88807586e-01, -1.34022653e+00,\n",
+              "        -1.18381211e+00],\n",
+              "       [-1.02184904e+00,  7.88807586e-01, -1.28338910e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-1.74885626e+00, -3.62176246e-01, -1.34022653e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-1.14301691e+00,  9.82172869e-02, -1.28338910e+00,\n",
+              "        -1.44707648e+00],\n",
+              "       [-5.37177559e-01,  1.47939788e+00, -1.28338910e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-1.26418478e+00,  7.88807586e-01, -1.22655167e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-1.26418478e+00, -1.31979479e-01, -1.34022653e+00,\n",
+              "        -1.44707648e+00],\n",
+              "       [-1.87002413e+00, -1.31979479e-01, -1.51073881e+00,\n",
+              "        -1.44707648e+00],\n",
+              "       [-5.25060772e-02,  2.16998818e+00, -1.45390138e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-1.73673948e-01,  3.09077525e+00, -1.28338910e+00,\n",
+              "        -1.05217993e+00],\n",
+              "       [-5.37177559e-01,  1.93979142e+00, -1.39706395e+00,\n",
+              "        -1.05217993e+00],\n",
+              "       [-9.00681170e-01,  1.01900435e+00, -1.34022653e+00,\n",
+              "        -1.18381211e+00],\n",
+              "       [-1.73673948e-01,  1.70959465e+00, -1.16971425e+00,\n",
+              "        -1.18381211e+00],\n",
+              "       [-9.00681170e-01,  1.70959465e+00, -1.28338910e+00,\n",
+              "        -1.18381211e+00],\n",
+              "       [-5.37177559e-01,  7.88807586e-01, -1.16971425e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-9.00681170e-01,  1.47939788e+00, -1.28338910e+00,\n",
+              "        -1.05217993e+00],\n",
+              "       [-1.50652052e+00,  1.24920112e+00, -1.56757623e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-9.00681170e-01,  5.58610819e-01, -1.16971425e+00,\n",
+              "        -9.20547742e-01],\n",
+              "       [-1.26418478e+00,  7.88807586e-01, -1.05603939e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-1.02184904e+00, -1.31979479e-01, -1.22655167e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-1.02184904e+00,  7.88807586e-01, -1.22655167e+00,\n",
+              "        -1.05217993e+00],\n",
+              "       [-7.79513300e-01,  1.01900435e+00, -1.28338910e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-7.79513300e-01,  7.88807586e-01, -1.34022653e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-1.38535265e+00,  3.28414053e-01, -1.22655167e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-1.26418478e+00,  9.82172869e-02, -1.22655167e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-5.37177559e-01,  7.88807586e-01, -1.28338910e+00,\n",
+              "        -1.05217993e+00],\n",
+              "       [-7.79513300e-01,  2.40018495e+00, -1.28338910e+00,\n",
+              "        -1.44707648e+00],\n",
+              "       [-4.16009689e-01,  2.63038172e+00, -1.34022653e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-1.14301691e+00,  9.82172869e-02, -1.28338910e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-1.02184904e+00,  3.28414053e-01, -1.45390138e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-4.16009689e-01,  1.01900435e+00, -1.39706395e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-1.14301691e+00,  1.24920112e+00, -1.34022653e+00,\n",
+              "        -1.44707648e+00],\n",
+              "       [-1.74885626e+00, -1.31979479e-01, -1.39706395e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-9.00681170e-01,  7.88807586e-01, -1.28338910e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-1.02184904e+00,  1.01900435e+00, -1.39706395e+00,\n",
+              "        -1.18381211e+00],\n",
+              "       [-1.62768839e+00, -1.74335684e+00, -1.39706395e+00,\n",
+              "        -1.18381211e+00],\n",
+              "       [-1.74885626e+00,  3.28414053e-01, -1.39706395e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-1.02184904e+00,  1.01900435e+00, -1.22655167e+00,\n",
+              "        -7.88915558e-01],\n",
+              "       [-9.00681170e-01,  1.70959465e+00, -1.05603939e+00,\n",
+              "        -1.05217993e+00],\n",
+              "       [-1.26418478e+00, -1.31979479e-01, -1.34022653e+00,\n",
+              "        -1.18381211e+00],\n",
+              "       [-9.00681170e-01,  1.70959465e+00, -1.22655167e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-1.50652052e+00,  3.28414053e-01, -1.34022653e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-6.58345429e-01,  1.47939788e+00, -1.28338910e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [-1.02184904e+00,  5.58610819e-01, -1.34022653e+00,\n",
+              "        -1.31544430e+00],\n",
+              "       [ 1.40150837e+00,  3.28414053e-01,  5.35408562e-01,\n",
+              "         2.64141916e-01],\n",
+              "       [ 6.74501145e-01,  3.28414053e-01,  4.21733708e-01,\n",
+              "         3.95774101e-01],\n",
+              "       [ 1.28034050e+00,  9.82172869e-02,  6.49083415e-01,\n",
+              "         3.95774101e-01],\n",
+              "       [-4.16009689e-01, -1.74335684e+00,  1.37546573e-01,\n",
+              "         1.32509732e-01],\n",
+              "       [ 7.95669016e-01, -5.92373012e-01,  4.78571135e-01,\n",
+              "         3.95774101e-01],\n",
+              "       [-1.73673948e-01, -5.92373012e-01,  4.21733708e-01,\n",
+              "         1.32509732e-01],\n",
+              "       [ 5.53333275e-01,  5.58610819e-01,  5.35408562e-01,\n",
+              "         5.27406285e-01],\n",
+              "       [-1.14301691e+00, -1.51316008e+00, -2.60315415e-01,\n",
+              "        -2.62386821e-01],\n",
+              "       [ 9.16836886e-01, -3.62176246e-01,  4.78571135e-01,\n",
+              "         1.32509732e-01],\n",
+              "       [-7.79513300e-01, -8.22569778e-01,  8.07091462e-02,\n",
+              "         2.64141916e-01],\n",
+              "       [-1.02184904e+00, -2.43394714e+00, -1.46640561e-01,\n",
+              "        -2.62386821e-01],\n",
+              "       [ 6.86617933e-02, -1.31979479e-01,  2.51221427e-01,\n",
+              "         3.95774101e-01],\n",
+              "       [ 1.89829664e-01, -1.97355361e+00,  1.37546573e-01,\n",
+              "        -2.62386821e-01],\n",
+              "       [ 3.10997534e-01, -3.62176246e-01,  5.35408562e-01,\n",
+              "         2.64141916e-01],\n",
+              "       [-2.94841818e-01, -3.62176246e-01, -8.98031345e-02,\n",
+              "         1.32509732e-01],\n",
+              "       [ 1.03800476e+00,  9.82172869e-02,  3.64896281e-01,\n",
+              "         2.64141916e-01],\n",
+              "       [-2.94841818e-01, -1.31979479e-01,  4.21733708e-01,\n",
+              "         3.95774101e-01],\n",
+              "       [-5.25060772e-02, -8.22569778e-01,  1.94384000e-01,\n",
+              "        -2.62386821e-01],\n",
+              "       [ 4.32165405e-01, -1.97355361e+00,  4.21733708e-01,\n",
+              "         3.95774101e-01],\n",
+              "       [-2.94841818e-01, -1.28296331e+00,  8.07091462e-02,\n",
+              "        -1.30754636e-01],\n",
+              "       [ 6.86617933e-02,  3.28414053e-01,  5.92245988e-01,\n",
+              "         7.90670654e-01],\n",
+              "       [ 3.10997534e-01, -5.92373012e-01,  1.37546573e-01,\n",
+              "         1.32509732e-01],\n",
+              "       [ 5.53333275e-01, -1.28296331e+00,  6.49083415e-01,\n",
+              "         3.95774101e-01],\n",
+              "       [ 3.10997534e-01, -5.92373012e-01,  5.35408562e-01,\n",
+              "         8.77547895e-04],\n",
+              "       [ 6.74501145e-01, -3.62176246e-01,  3.08058854e-01,\n",
+              "         1.32509732e-01],\n",
+              "       [ 9.16836886e-01, -1.31979479e-01,  3.64896281e-01,\n",
+              "         2.64141916e-01],\n",
+              "       [ 1.15917263e+00, -5.92373012e-01,  5.92245988e-01,\n",
+              "         2.64141916e-01],\n",
+              "       [ 1.03800476e+00, -1.31979479e-01,  7.05920842e-01,\n",
+              "         6.59038469e-01],\n",
+              "       [ 1.89829664e-01, -3.62176246e-01,  4.21733708e-01,\n",
+              "         3.95774101e-01],\n",
+              "       [-1.73673948e-01, -1.05276654e+00, -1.46640561e-01,\n",
+              "        -2.62386821e-01],\n",
+              "       [-4.16009689e-01, -1.51316008e+00,  2.38717193e-02,\n",
+              "        -1.30754636e-01],\n",
+              "       [-4.16009689e-01, -1.51316008e+00, -3.29657076e-02,\n",
+              "        -2.62386821e-01],\n",
+              "       [-5.25060772e-02, -8.22569778e-01,  8.07091462e-02,\n",
+              "         8.77547895e-04],\n",
+              "       [ 1.89829664e-01, -8.22569778e-01,  7.62758269e-01,\n",
+              "         5.27406285e-01],\n",
+              "       [-5.37177559e-01, -1.31979479e-01,  4.21733708e-01,\n",
+              "         3.95774101e-01],\n",
+              "       [ 1.89829664e-01,  7.88807586e-01,  4.21733708e-01,\n",
+              "         5.27406285e-01],\n",
+              "       [ 1.03800476e+00,  9.82172869e-02,  5.35408562e-01,\n",
+              "         3.95774101e-01],\n",
+              "       [ 5.53333275e-01, -1.74335684e+00,  3.64896281e-01,\n",
+              "         1.32509732e-01],\n",
+              "       [-2.94841818e-01, -1.31979479e-01,  1.94384000e-01,\n",
+              "         1.32509732e-01],\n",
+              "       [-4.16009689e-01, -1.28296331e+00,  1.37546573e-01,\n",
+              "         1.32509732e-01],\n",
+              "       [-4.16009689e-01, -1.05276654e+00,  3.64896281e-01,\n",
+              "         8.77547895e-04],\n",
+              "       [ 3.10997534e-01, -1.31979479e-01,  4.78571135e-01,\n",
+              "         2.64141916e-01],\n",
+              "       [-5.25060772e-02, -1.05276654e+00,  1.37546573e-01,\n",
+              "         8.77547895e-04],\n",
+              "       [-1.02184904e+00, -1.74335684e+00, -2.60315415e-01,\n",
+              "        -2.62386821e-01],\n",
+              "       [-2.94841818e-01, -8.22569778e-01,  2.51221427e-01,\n",
+              "         1.32509732e-01],\n",
+              "       [-1.73673948e-01, -1.31979479e-01,  2.51221427e-01,\n",
+              "         8.77547895e-04],\n",
+              "       [-1.73673948e-01, -3.62176246e-01,  2.51221427e-01,\n",
+              "         1.32509732e-01],\n",
+              "       [ 4.32165405e-01, -3.62176246e-01,  3.08058854e-01,\n",
+              "         1.32509732e-01],\n",
+              "       [-9.00681170e-01, -1.28296331e+00, -4.30827696e-01,\n",
+              "        -1.30754636e-01],\n",
+              "       [-1.73673948e-01, -5.92373012e-01,  1.94384000e-01,\n",
+              "         1.32509732e-01],\n",
+              "       [ 5.53333275e-01,  5.58610819e-01,  1.27429511e+00,\n",
+              "         1.71209594e+00],\n",
+              "       [-5.25060772e-02, -8.22569778e-01,  7.62758269e-01,\n",
+              "         9.22302838e-01],\n",
+              "       [ 1.52267624e+00, -1.31979479e-01,  1.21745768e+00,\n",
+              "         1.18556721e+00],\n",
+              "       [ 5.53333275e-01, -3.62176246e-01,  1.04694540e+00,\n",
+              "         7.90670654e-01],\n",
+              "       [ 7.95669016e-01, -1.31979479e-01,  1.16062026e+00,\n",
+              "         1.31719939e+00],\n",
+              "       [ 2.12851559e+00, -1.31979479e-01,  1.61531967e+00,\n",
+              "         1.18556721e+00],\n",
+              "       [-1.14301691e+00, -1.28296331e+00,  4.21733708e-01,\n",
+              "         6.59038469e-01],\n",
+              "       [ 1.76501198e+00, -3.62176246e-01,  1.44480739e+00,\n",
+              "         7.90670654e-01],\n",
+              "       [ 1.03800476e+00, -1.28296331e+00,  1.16062026e+00,\n",
+              "         7.90670654e-01],\n",
+              "       [ 1.64384411e+00,  1.24920112e+00,  1.33113254e+00,\n",
+              "         1.71209594e+00],\n",
+              "       [ 7.95669016e-01,  3.28414053e-01,  7.62758269e-01,\n",
+              "         1.05393502e+00],\n",
+              "       [ 6.74501145e-01, -8.22569778e-01,  8.76433123e-01,\n",
+              "         9.22302838e-01],\n",
+              "       [ 1.15917263e+00, -1.31979479e-01,  9.90107977e-01,\n",
+              "         1.18556721e+00],\n",
+              "       [-1.73673948e-01, -1.28296331e+00,  7.05920842e-01,\n",
+              "         1.05393502e+00],\n",
+              "       [-5.25060772e-02, -5.92373012e-01,  7.62758269e-01,\n",
+              "         1.58046376e+00],\n",
+              "       [ 6.74501145e-01,  3.28414053e-01,  8.76433123e-01,\n",
+              "         1.44883158e+00],\n",
+              "       [ 7.95669016e-01, -1.31979479e-01,  9.90107977e-01,\n",
+              "         7.90670654e-01],\n",
+              "       [ 2.24968346e+00,  1.70959465e+00,  1.67215710e+00,\n",
+              "         1.31719939e+00],\n",
+              "       [ 2.24968346e+00, -1.05276654e+00,  1.78583195e+00,\n",
+              "         1.44883158e+00],\n",
+              "       [ 1.89829664e-01, -1.97355361e+00,  7.05920842e-01,\n",
+              "         3.95774101e-01],\n",
+              "       [ 1.28034050e+00,  3.28414053e-01,  1.10378283e+00,\n",
+              "         1.44883158e+00],\n",
+              "       [-2.94841818e-01, -5.92373012e-01,  6.49083415e-01,\n",
+              "         1.05393502e+00],\n",
+              "       [ 2.24968346e+00, -5.92373012e-01,  1.67215710e+00,\n",
+              "         1.05393502e+00],\n",
+              "       [ 5.53333275e-01, -8.22569778e-01,  6.49083415e-01,\n",
+              "         7.90670654e-01],\n",
+              "       [ 1.03800476e+00,  5.58610819e-01,  1.10378283e+00,\n",
+              "         1.18556721e+00],\n",
+              "       [ 1.64384411e+00,  3.28414053e-01,  1.27429511e+00,\n",
+              "         7.90670654e-01],\n",
+              "       [ 4.32165405e-01, -5.92373012e-01,  5.92245988e-01,\n",
+              "         7.90670654e-01],\n",
+              "       [ 3.10997534e-01, -1.31979479e-01,  6.49083415e-01,\n",
+              "         7.90670654e-01],\n",
+              "       [ 6.74501145e-01, -5.92373012e-01,  1.04694540e+00,\n",
+              "         1.18556721e+00],\n",
+              "       [ 1.64384411e+00, -1.31979479e-01,  1.16062026e+00,\n",
+              "         5.27406285e-01],\n",
+              "       [ 1.88617985e+00, -5.92373012e-01,  1.33113254e+00,\n",
+              "         9.22302838e-01],\n",
+              "       [ 2.49201920e+00,  1.70959465e+00,  1.50164482e+00,\n",
+              "         1.05393502e+00],\n",
+              "       [ 6.74501145e-01, -5.92373012e-01,  1.04694540e+00,\n",
+              "         1.31719939e+00],\n",
+              "       [ 5.53333275e-01, -5.92373012e-01,  7.62758269e-01,\n",
+              "         3.95774101e-01],\n",
+              "       [ 3.10997534e-01, -1.05276654e+00,  1.04694540e+00,\n",
+              "         2.64141916e-01],\n",
+              "       [ 2.24968346e+00, -1.31979479e-01,  1.33113254e+00,\n",
+              "         1.44883158e+00],\n",
+              "       [ 5.53333275e-01,  7.88807586e-01,  1.04694540e+00,\n",
+              "         1.58046376e+00],\n",
+              "       [ 6.74501145e-01,  9.82172869e-02,  9.90107977e-01,\n",
+              "         7.90670654e-01],\n",
+              "       [ 1.89829664e-01, -1.31979479e-01,  5.92245988e-01,\n",
+              "         7.90670654e-01],\n",
+              "       [ 1.28034050e+00,  9.82172869e-02,  9.33270550e-01,\n",
+              "         1.18556721e+00],\n",
+              "       [ 1.03800476e+00,  9.82172869e-02,  1.04694540e+00,\n",
+              "         1.58046376e+00],\n",
+              "       [ 1.28034050e+00,  9.82172869e-02,  7.62758269e-01,\n",
+              "         1.44883158e+00],\n",
+              "       [-5.25060772e-02, -8.22569778e-01,  7.62758269e-01,\n",
+              "         9.22302838e-01],\n",
+              "       [ 1.15917263e+00,  3.28414053e-01,  1.21745768e+00,\n",
+              "         1.44883158e+00],\n",
+              "       [ 1.03800476e+00,  5.58610819e-01,  1.10378283e+00,\n",
+              "         1.71209594e+00],\n",
+              "       [ 1.03800476e+00, -1.31979479e-01,  8.19595696e-01,\n",
+              "         1.44883158e+00],\n",
+              "       [ 5.53333275e-01, -1.28296331e+00,  7.05920842e-01,\n",
+              "         9.22302838e-01],\n",
+              "       [ 7.95669016e-01, -1.31979479e-01,  8.19595696e-01,\n",
+              "         1.05393502e+00],\n",
+              "       [ 4.32165405e-01,  7.88807586e-01,  9.33270550e-01,\n",
+              "         1.44883158e+00],\n",
+              "       [ 6.86617933e-02, -1.31979479e-01,  7.62758269e-01,\n",
+              "         7.90670654e-01]])"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 50
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "plt.plot(X[: , 0 ][y == 0]* X[: , 1][y == 0], X[: , 1 ][y == 0]* X[: , 2][y == 0],'r.', label='Setosa')\n",
+        "plt.plot(X[: , 0 ][y == 1]* X[: , 1][y == 1], X[: , 1 ][y == 1]* X[: , 2][y == 1],'g.', label='versicolour')\n",
+        "plt.plot(X[: , 0 ][y == 2]* X[: , 1][y == 2], X[: , 1 ][y == 2]* X[: , 2][y == 2],'b.', label='verginica') \n",
+        "plt.legend()\n",
+        "plt.show()"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 265
+        },
+        "id": "cw_4QMvijOeG",
+        "outputId": "0199e71b-6099-469b-e40b-aadf17c7e3f7"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "<Figure size 432x288 with 1 Axes>"
+            ],
+            "image/png": "iVBORw0KGgoAAAANSUhEUgAAAXIAAAD4CAYAAADxeG0DAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAADh0RVh0U29mdHdhcmUAbWF0cGxvdGxpYiB2ZXJzaW9uMy4yLjIsIGh0dHA6Ly9tYXRwbG90bGliLm9yZy+WH4yJAAAgAElEQVR4nO3de3zU9Z3v8dcnE0K0atcTaItADN1aihCuQZ3aLqNYdV2KtiyHba3x0tN4qbo83B4rp7VmS/tId92tl62rTY8IqXaVB2hrqbZKZBbUsUIQRG5i2wgoFYwF4SgZkvmePyYTcs8k85vLb/J+Ph55TGYm8/t9kgd85jOf3/dizjlERMS/CrIdgIiIpEaJXETE55TIRUR8TolcRMTnlMhFRHyuMBsnHTFihCsrK8vGqUVEfKuhoeFd59zIro9nJZGXlZWxYcOGbJxaRMS3zOzNnh5Xa0VExOdSTuRmVmxmL5vZZjPbamb/7EVgIiKSHC9aK83A+c65I2Y2DHjezJ52zr3kwbFFRKQfKSdyF5/jf6Tt7rC2rwHP+z927Bh79+7l6NGjqYYkfSguLmbMmDEMGzYs26GIiEc8udhpZgGgAfgUcJ9z7vc9/EwVUAVQWlra7Rh79+7l5JNPpqysDDPzIizpwjlHU1MTe/fuZdy4cdkOR0Q84snFTudcq3NuKjAGOMvMJvXwM7XOuQrnXMXIkd1Gz3D06FFKSkqUxNPIzCgpKdGnHpE84+moFefcQWANcPFgXq8knn76G4sMTCQCNTXx21yVcmvFzEYCx5xzB83sBOALwL+kHJmISJZFIjB7NkSjUFQE9fUQDGY7qu68qMhHAWvM7FVgPfCsc26VB8fNih/+8IdMnDiRyZMnM3XqVH7/+27t/nZLly7l7bffzmB0IpJJ4XA8ibe2xm/D4WxH1DMvRq28CkzzIJasi0QirFq1io0bNzJ8+HDeffddotForz+/dOlSJk2axGmnnZbBKEUkU0KheCWeqMhDoWxH1DN/z+z0uHm1b98+RowYwfDhwwEYMWIEp512Gg0NDcyaNYsZM2Zw0UUXsW/fPlasWMGGDRu4/PLLmTp1Kh9++CH19fVMmzaN8vJyrrnmGpqbmwG47bbbOPPMM5k8eTLf+ta3APj1r3/N2WefzbRp07jgggt45513PPkdRMQ7wWC8nbJ4ce62VYD4kLRMf82YMcN1tW3btm6P9enFF5074QTnAoH47YsvDuz1PTh8+LCbMmWKO+OMM9z111/vwuGwi0ajLhgMuv379zvnnHv00Ufd1Vdf7ZxzbtasWW79+vXOOec+/PBDN2bMGLdz507nnHNXXHGFu+uuu9y7777rPv3pT7tYLOacc+4vf/mLc8659957r/2xn/3sZ+6WW25JOf5kDfhvLSI5AdjgesipWVk0yxM9Na9SfLs86aSTaGhoYN26daxZs4YFCxbw3e9+l9dee40vfOELALS2tjJq1Khur925cyfjxo3j05/+NABXXnkl9913HzfeeCPFxcV8/etfZ86cOcyZMweIj5tfsGAB+/btIxqNaly3iAyafxN5mppXgUCAUChEKBSivLyc++67j4kTJxIZZPumsLCQl19+mfr6elasWMFPfvITnnvuOW666SZuueUW5s6dSzgcprq62pP4RWTo8W+PPA3Nq507d7Jr1672+5s2bWLChAkcOHCgPZEfO3aMrVu3AnDyySdz+PBhAMaPH09jYyNvvPEGAD//+c+ZNWsWR44c4dChQ1xyySXcddddbN68GYBDhw4xevRoAJYtW5Zy7CIydPm3Iod48vbw6sORI0e46aabOHjwIIWFhXzqU5+itraWqqoqbr75Zg4dOkRLSwsLFy5k4sSJXHXVVVx33XWccMIJRCIRHnroIebPn09LSwszZ87kuuuu47333uPSSy/l6NGjOOf48Y9/DEB1dTXz58/n1FNP5fzzz+dPf/qTZ7+HiOSmSCTeBQ6FvL1wavH+eWZVVFS4rhtLbN++nQkTJmQ8lqFIf2uRzPNicpGZNTjnKro+7t/WioiIj6RzcpESuYiknx8WLEmzxPiMQMD7yUX+7pGLSO7zy4IlaZYYn5GOHrkSuYikVxrmfPiVx+Mz2qm1IiLplc6eggCqyEUk3dLZUxBAFXlafe9732P16tUDfl04HG6fyi+SF4JBWLRISTxNVJGnKLFoTUFB9/fE73//+1mI6Li+YhOR/OHr/+GRPRFq1tUQ2ZP6kKbbbruN++67r/1+dXU1//Zv/8add97JzJkzmTx5MnfccQcAjY2NjB8/nsrKSiZNmsSePXu46qqrmDRpEuXl5dx1110AXHXVVaxYsQKA9evX89nPfpYpU6Zw1llncfjwYY4ePcrVV19NeXk506ZNY82aNd3ieu+997jsssuYPHky55xzDq+++mqn+BImTZpEY2Njj7GJSH7zbUUe2RNhdt1soq1RigJF1FfWExw7+I9tCxYsYOHChXzzm98EYPny5Xz729/mhRde4OWXX8Y5x9y5c1m7di2lpaXs2rWLZcuWcc4559DQ0MBbb73Fa6+9BsDBgwc7HTsajbJgwQIee+wxZs6cyfvvv88JJ5zAPffcg5mxZcsWduzYwYUXXsjrr7/e6bV33HEH06ZN45e//CXPPfcclZWVbNq0qc/fpWNsIpL/fFuRhxvDRFujtLpWoq1Rwo3hlI43bdo09u/fz9tvv83mzZs59dRT2bJlC8888wzTpk1j+vTp7Nixo31RrdNPP709UX7yk5/kj3/8IzfddBO//e1vOeWUUzode+fOnYwaNYqZM2cCcMopp1BYWMjzzz/P1772NQA+85nPcPrpp3dL5M8//zxXXHEFAOeffz5NTU28//77ff4uHWMTkfzn24o8VBaiKFDUXpGHykIpH3P+/PmsWLGCP//5zyxYsIA333yTRYsWce2113b6ucbGRj7ykY+03z/11FPZvHkzv/vd73jggQdYvnw5S5YsSTmevhQWFhKLxdrvHz16tP37jrGJSP7zbUUeHBukvrKexectTrmtkrBgwQIeffRRVqxYwfz587noootYsmQJR44cAeCtt95i//793V737rvvEovFmDdvHj/4wQ/YuHFjp+fHjx/Pvn37WL9+PQCHDx+mpaWFz3/+8zzyyCMAvP766+zevZvx48d3em3HnwmHw4wYMYJTTjmFsrKy9vNs3LhRqyeKDGEpV+RmNhaoAz4OOKDWOXdPqsdNRnBs0JMEnjBx4kQOHz7M6NGjGTVqFKNGjWL79u0E24ZMnXTSSTz88MMEAoFOr3vrrbe4+uqr2yvkmpqaTs8XFRXx2GOPcdNNN/Hhhx9ywgknsHr1am644Qauv/56ysvLKSwsZOnSpe37hSZUV1dzzTXXMHnyZE488cT2tcvnzZtHXV0dEydO5Oyzz27fmUhEhp6Ul7E1s1HAKOfcRjM7GWgALnPObevtNVrGNrv0txbxp7QtY+uc2+ec29j2/WFgOzA61eOKiEhyPO2Rm1kZMA34fQ/PVZnZBjPbcODAAS9PKyIypHmWyM3sJGAlsNA51218nHOu1jlX4ZyrGDlypFenFREZ8jxJ5GY2jHgSf8Q597gXxxQRkeSknMjNzIAHge3OuR+nHpKIiAyEFxX5ucAVwPlmtqnt6xIPjisiIknwYtTK8845c85Nds5Nbft6yovg8kEyS9k++eST/OhHP8pQRCKSb3w7RT9X9LdUbDJL2c6dO5e5c+d6HZqIDBG+naIP3m7MneoytosXL2b8+PF87nOf4ytf+Ur7ErMdl7ItKyvjjjvuYPr06ZSXl7Njxw4Ali5dyo033gjAO++8w5e+9CWmTJnClClTePHFFwG47LLLmDFjBhMnTqS2tjb1X1hE8oZvE3liY+7bb4/fpprMFyxYwPLly9vvL1++nJEjR7Jr1y5efvllNm3aRENDA2vXrgXiS8XecMMNbN26lf3797Ny5Uo2b97M008/TddZqx2NGDGCjRs3cv3113daTzzh5ptvZtasWWzevJmNGzcyceJEAJYsWUJDQwMbNmzg3nvvpampKbVfWPKal0WO5D7ftla83pi74zK2Bw4c6LaMLcCRI0fYtWsXpaWlnZaKfeGFF7j00kspLi6muLiYL37xi72e58tf/jIAM2bM4PHHu4/UfO6556irqwMgEAjw0Y9+FIB7772XJ554AoA9e/awa9cuSkpKBv8LS95KFDnRaHyv4/p67bCW73ybyBMbcyf+sXqxMfdgl7EdiMSiWIFAgJaWlqReEw6HWb16NZFIhBNPPJFQKNRp2VqRjrwuciT3+ba1ktiYe/Fi7yqOwS5je+655/LrX/+ao0ePcuTIEVatWjXoGGbPns39998PQGtrK4cOHeLQoUOceuqpnHjiiezYsYOXXnpp0MeX/JcocgIB74ocyW2+rcghnry9rDQGu4ztzJkzmTt3LpMnT+bjH/845eXl7S2RgbrnnnuoqqriwQcfJBAIcP/993PxxRfzwAMPMGHCBMaPH6/df6RPiSInHI4ncVXj+S/lZWwHIx+XsT1y5AgnnXQSH3zwAX/zN39DbW0t06dPz3ZYPfL731pkqOptGVtfV+S5pKqqim3btnH06FGuvPLKnE3iIpJ/lMg98otf/CLbIYjIEJVTFzuz0eYZavQ3Fsk/OZPIi4uLaWpqUqJJI+ccTU1NFBcXZzsUEfFQzrRWxowZw969e9HuQelVXFzMmDFjsh2GiHgoZxL5sGHDGDduXLbDEBHxnZxprYiIyOAokYuI+JwSuYiIzymRi4j4nBK5iIjPKZGLiPicJ4nczJaY2X4ze82L44mISPK8qsiXAhd7dCwRERkATxK5c24t8J4XxxIRkYHJWI/czKrMbIOZbdA0fBER72QskTvnap1zFc65ipEjR2bqtCIieU+jVkREfE6JXHwlEoGamvitiMR5svqhmf0XEAJGmNle4A7n3INeHFskIRKB2bMhGo3vDl9fr42FRcCjRO6c+4oXxxHpSzgcT+KtrfHbcFiJXARyaD1ykY4ikXiiLimBpiYIheJfRUXHK/JQKLsxiuQKJXLJOYkWSnMzxGJQUADDh8dbKfX18QQfCqkaF0lQIpeck2ihxGLx+7HY8VbKokVK4CJdadSK5JxEC6Wg7V9nQUFyrZTaWrjoovityFCiilxyTjB4vIXSsUfeVyVeWwvXXhv//pln4rdVVemOVCQ3KJFLTgoGB9ZCWbmy+/10JfLIngjhxjChshDBserzSPYpkUtemDfveCWeuJ8OkT0RZtfNJtoapShQRH1lvZK5ZJ0SueSFRPW9ciXMm/oHqpqWQyTk+ZXRcGOYaGuUVtdKtDVKuDGsRC5Zp0QueaOqCqrK0zv9M1QWoihQ1F6Rh8pCnh27L2rnSF+UyCXnJSYH9XbBs9PzaZ7+GRwbpL6yPqNJVe0c6Y8SueS0/tZX6fb83XMIFi1O6/TP4NhgxhJ4uDHM7kO71c6RPimRS9Yk0y7oWGA3N0N1dfwrkcy7FeBN5QTzYPpnxyo8UBCgsKAQYmS0ndM1HrV2cpcSuWRFf+2CROIomTCHoqLy9un6q1fDunXHK/Me118Z6NjFHNTxoiox+Mb0b1D60dKsJFK1dnKfErlkRdfRH3WrdhE+GIwn4jEdE8di7v7F71l5fzmrV3eerp/I13lQgHfT9aJq5ZTKrCVPjdTJfUrkkhUdE1Xgrc/xUM3ltByDwkKYcvFwmkdOJzbmBaKtUZpKVlFdXc66dT23vvOgAO8mGxdVe5OtkTqSPHPOZfykFRUVbsOGDRk/r2RHb/3V9ot5q77Kz/79dFpbARxmDld4lIIrL2R42cb2j/L9jV6R9FGPPDeYWYNzrqLb40rkkk699lcjEairg23biBz4FLN33c/RlgCOAsAoKIhxwf9aS/V3h3dLHEoqMlT1lsjVWpG06rG/uhc47zxobiYyBsJla7mpdRvh9yt55c9XEyNAkTmqrwoRHNv5eLrwJtKdErmkVdde+O5VX6X29a280nwXfz4RnppdR8vpLxGzlyhwL1H4Zh3feCJE5fmnEgze2u14uvAm0p0SuaRV4qJd3apdPFRzObXRALFYafzJD4CfXwNXh2DMS8QKoLX0JUqnryd467oej6cLbyLdebKxhJldbGY7zewNM7vNi2NK/giODVJ6sJKWY4H2XX/A4l+xIthUCQYFGEWBYYRu/c9er2Ym3hgWn7e417ZKZE+EmnU1RPZE0vY7ieSSlCtyMwsA9wFfAPYC683sSefctlSPLfkjMXHnw6Ot4AoARzyZw5hTxnL7nJ/S9EFTUhcw+5oirx66DEVetFbOAt5wzv0RwMweBS4FlMiHkJ5GkrTPzjyxhFeaXuGi74/juTWtvH8IePFb4AIQiHL7zadTNWOOJ3GEG8M0tzYTczGaW5vVQ5chwYtEPhrY0+H+XuDsrj9kZlVAFUBpaakHp5Vs65ioF/52YacqeMv+LdzwwM9p/dPnoexJGPtS/EVntb34M09CY4gLZw+n6rJqz2IqObGEmIv3b2IuRsmJJZ4dWyRXZexip3OuFqiF+DjyTJ1XvBfZE6Fucx1LNi2hNdYKQOvumbC5kg8x/nX4Op5c+0diq56Lt1ECx+Cq844nc+CUv97GFy/5ax7+8sNJnS/ZceOv7Hulz/si+ciLRP4W0HG075i2xyQPJXrQH/5pKjTeAmVheGcS/OY/wcX/Of2yoTXeAicAGLQWwObKTon8cPQwj29/nMieSJ/JWT1vkf55kcjXA2eY2TjiCfwfgK96cFzJEZE9EepW7YLGWVC2i+bG6bDsGWgtov2ipWtL2tD2/fGLmT1xuKTGgfc3brxrtV45pZIlm5ZwrPUYwwLDqJxS6cWfQCSnpZzInXMtZnYj8DviJdgS59zWlCOTnBDZEyH0g0VElzwFrcMpCFwOZ5wST+KukLbSm3jS7pi8XftzBYWtxKbUdTpugRV0GwfeUwulr3HjvVXr4SvDmsIvQ4onPXLn3FPAU14cS3JLuDHMsT+c25a4A8RaHAWvz6XAIOYSidsBsQ7fA+feSSBawhfHfxGm1PHL/3e8rTL141P52Ec+xrwz53Ua4dJTUu5rFcDeqvWuwxO1NovkO83sFKD34YO7D+0m8MmttKyJQSJxO2PuXFi1Kr4+eGEgxtQJv+Tlk16Hd6bBhMe58H++SXWomuDYTxDZ83meWlbEsdZjFBYUsu3dbWzZv4V1u9dR/rHyeBXdRwult3HjyczyVI9dhgIlcukx2QHtjxWWFvLZ65fzwk+/iosZw4fDrbfC3165hZVPNzHvb0son3Eas+uuaD9Gdai+UyJOtDt2H9rNzzb+rFvCHszU+2TW7NbaLDIUKJHnuaT2xewh2QGdthq7eMEefnR5AXVtre4t72xh4daziY6Osm5rEfUz6vtMqomqOrInwrLNy7ol7MFupNDfRsham0WGAiXyPJZsW6G3ZNftsb2wbFl8l56Chz5Dy4VX4D74HzSPW0e4Mcyizy9Kanp9x4TN3iA1Dyc2i+h/d/qB9rtzaacdkXRRIs9jybYV2pPd2jpCjcTXCw92T4A1Dx/fsd65Qtxv/gNcAbHCKCV/94ek42qvziMwe/bx7dsSGyr3ZrD97v6qdhG/UyLPY322FTrumwYE6+oIPvggtLTA4odgzZr2CjkSgZqHoaTk+I71BQWGax2Gc0ZBLEDT9nK4rOc4etuiLRw+/sbQcUPl3qjfLdIzJfI81mtboWMpHAiAWfz7xLZ/zc3xbdiCbVXzea1Eo0ZRkePuewM0NcWT+sKF1lZNW6fNkDvqq+pOrIjY04bKPVG/W6RnSuR5rmNbob0y3r2LYKIUTiwQ7hwRziFMiBBhEnVuuO5Nos2jaSVAtPkYTa/sZdH9pwNQXt7/Zsh9Vd3BYDyxJ7uhsvrdIj1TIh8iOlXGhZdTH1hCkOfbK/JIdAaz3bNEKaKIKPXT/kAQCPHfFPH3RHEUcYwQ/w3Ep70Hg/0n3/6q7mSO0ennfdzv7q3FJJIqJfIholNlTIDwN5YRLP1Fe2YNVzcTfbaYVldAtCBAuKmcIBCsPIP6JZcQPnYuoWEvEKysGdB5B1p156uBXtgVGQhPtnqTzBnsNmaJyjgQaKuMK0+HRYvaS+JQdYii4oL488ONgwfhoougdkuQYLiGRT88iWC4psfs019MwWC8p15dDbW1g/il80BPLSYRr6gi95FUppv3WRlHIgTDYervnkO4qZyDB+Ff/zX+1DPPAD8NUrVo8Fur1dbCtdd2OB5QVZX0r50XBnphV2QgVJH7SG8zMJMVDB4vwtslPvPffjvBhWezKBRh06bOr1u5MrWYur6+r+Plq8Qb6eLFaquI91SR+4iXw+96HMHS9pl/3rxge+UMMG9eajHNm0fSx8tnA72wK5IsJXIf8Wr4Xaex4YVfPT6Cpe0zf1XbYVeujCfdvtogycSUeH0yxxORgTPnMr99ZkVFhduwYUPGz+sX6R6mVnP9m9z+wGhaKSTAMRZf9gqLzqof2sNKRHzAzBqccxVdH1dFnmN6HabWR3bvbSGp3h7vNjb8EzvizXMR8SUl8hzT40xIeh+E3Nuokb5Gk6Q6NlxEcotGreSYbuO9Q/Q5CLm3USPhxjDNjdNpXfu/aW6c3nk0SbD/seGZFolATU38VkQGRhV5jul5vHeo10HIvY0aKWmaQ2zZP0JLUc/LzPY2hCIL88g161EkNSklcjObD1QDE4CznHO6gumBbjk2GIS77z4+7KPDk51GjRwpIfhwGELQtD1IQcwRS2KZ2XZZyqgDXc5WRDpLtSJ/Dfgy8FMPYsl7gy52IxFYuDCe5datiy872CWZB/cCXzqvPQmH7l3P8MIzicagqBBCoUD/5wmH40vYxmLx2wxlVM16FElNSoncObcdwMy8iSaPpVTsJlOy1tXFky9AczPBp79HvfsLYc4l5F4gSA3QzwlLSo4vaxuLxe9ngBbWEklNxnrkZlYFVAGUlpZm6rQ5o89c3F+pPpiS9e23CbY2EHT/Da2B4yfs61xNTVBQEE/iBQXx+xmiWY8ig9dvIjez1cAnenjqO865XyV7IudcLVAL8QlBSUeYJ3rNxcmU6smUrJWVsGQJHDsGw4bB178OW7Z0PmF/5wqFYPjwbkFqHW2R3NZvInfOXZCJQPJdr7k42St9/ZWswWD8tR1P0HULn5qavs/VQ5AaUSKS+zT8MIN6zMVeXunreoKu95M5V5fXaESJSO5Ldfjhl4D/AEYCvzGzTc65izyJbKjI5JW+QZxLI0pEcp8Wzcp1OdCgzoEQRAQtmuVPOdKg1ogSkdymtVZy2UA3etSCJSJDkiryXDaQBnWOVO8iknmqyHNZXxs91ta2bXPfti19GrZpV4Ev4g+qyP2op23pvRpe0nZlM1Iyh9kLy1Xgi/iAEnku661d0tO29FVVqQ9j7HC+sH1INDaJ1php/LhIjlNrJYMG3KrorV3SdRv6xP1gML5l22AzbofzhWLPURRo6bzBhYjkJFXkGTKoa5G9tUvStS19h/MFizZSf/cOwk3lGj8ukuOUyDNkUFPd+5qJWVXlXQLv5XzBYHl/C9+KSA5QIs+QQV+LzPRsHM3+EfEdJfIM0eYJIpIuSuQZpGJXRNJBo1bSpa8hKpppIyIeUkWeDn0NUdFUehHxmCrydOhrunwaptKLyNCmRO6Frq2SxBCVnmbT9PWciMggqLWSqt5aJb0NUdHwFRHxmK8SeU7uVNPbTJ++hqho+IqIeMg3iTxnrxEOdM3wVBe16uv1OflOJyLp5ptEnrO7uSfbKkn1nai/1+fsO52IpFtKFzvN7E4z22Fmr5rZE2b2V14F1lXarxGmMrY7mVUHUx2t0t/rNRpGZMhKtSJ/FljknGsxs38BFgHfTj2s7tJ6jTAT1WyqGz/093qvNpbojdo2IjkrpUTunHumw92XgL9PLZy+pe0aYSb6Nqm+E/X3+nS+06ltI5LTvOyRXwM81tuTZlYFVAGUlpZ6eFoPpLuaTUj1nai/16frnS5nL1CICCSRyM1sNfCJHp76jnPuV20/8x2gBXikt+M452qBWoCKigo3qGjTJdVqNt/bDpl6oxORQek3kTvnLujreTO7CpgDzHbO5VaCHojBVrNDoe2gSUwiOS2l1oqZXQzcCsxyzn3gTUg+M1TaDprEJJKzUl1r5SfAycCzZrbJzB7wICZ/CYWgsBDM4rdqO4hIhqU6auVTXgXia4mOko87SyLiX1r9MFXhcLyt4lz81uuJONqEQkT64Zsp+jkrnSM6hsKFVBFJmRJ5qtI5omOoXEgVkZQokXshXSM6NH5bRJKgRJ7LNH5bRJKgRJ7rNH5bRPqhUSsiIj6nRC4i4nNK5CIiPqdELiLic0rkIiI+p0QuIuJzSuQiIj6nRJ7rtGiWiPRDE4JymRbNEpEkqCLPZT0tmiUi0oUSeS5LLJoVCGjRLBHplVoruUyLZolIEpTIc50WzRKRfqi1IiLicyklcjNbbGavmtkmM3vGzE7zKjAREUlOqhX5nc65yc65qcAq4HsexCQiIgOQUiJ3zr3f4e5HAJdaOCIiMlApX+w0sx8ClcAh4Lw+fq4KqAIoLS1N9bTei0Q0OkREfMmc67uINrPVwCd6eOo7zrlfdfi5RUCxc+6O/k5aUVHhNmzYMNBY00czKEXEB8yswTlX0fXxfity59wFSZ7jEeApoN9EnnN6mkGpRD5w+lQjkhUptVbM7Azn3K62u5cCO1IPKQsSMygTFblmUA6cPtWIZE2qPfIfmdl4IAa8CVyXekhZoBmUqdOnGpGsSSmRO+fmeRVI1mkGZWr0qUYkazRFX7yhTzUiWaNELt7RpxqRrNBaKyIiPqdELiLic0rkIiI+p0QuIuJzSuQiIj6nRJ6rIhGoqYnfioj0QcMPc5Gmu4vIAKgiz0U9TXcXEemFEnkuSkx3DwQ03V1E+qXWSi7SdHcRGQAl8lyl6e4ikiS1VkREfE6JXETE55TIRUR8TolcRMTnlMhFRHxOiVxExOeUyEVEfM6TRG5m/2RmzsxGeHE8yRAtzCWSF1KeEGRmY4ELgd2phyMZo4W5RPKGFxX5XcCtgPPgWJIpWphLJG+klNSUUwkAAAPhSURBVMjN7FLgLefc5iR+tsrMNpjZhgMHDqRyWvGCFuYSyRv9tlbMbDXwiR6e+g7wf4i3VfrlnKsFagEqKipUvWebFuYSyRv9JnLn3AU9PW5m5cA4YLOZAYwBNprZWc65P3sapaSHFuYSyQuDvtjpnNsCfCxx38wagQrn3LsexCUiIknSOHIREZ/zbD1y51yZV8cSEZHkqSIXEfE5JXIREZ9TIhcR8TlzLvNDus3sAPBmxk983AjAj6NrFHdmKe7MUtz9O905N7Lrg1lJ5NlmZhuccxXZjmOgFHdmKe7MUtyDp9aKiIjPKZGLiPjcUE3ktdkOYJAUd2Yp7sxS3IM0JHvkIiL5ZKhW5CIieUOJXETE54ZsIjezO81sh5m9amZPmNlfZTumZJjZfDPbamYxM8vpoVpmdrGZ7TSzN8zstmzHkywzW2Jm+83stWzHkiwzG2tma8xsW9u/j3/MdkzJMLNiM3vZzDa3xf3P2Y5pIMwsYGavmNmqbMYxZBM58CwwyTk3GXgdWJTleJL1GvBlYG22A+mLmQWA+4C/Bc4EvmJmZ2Y3qqQtBS7OdhAD1AL8k3PuTOAc4Js++Xs3A+c756YAU4GLzeycLMc0EP8IbM92EEM2kTvnnnHOtbTdfYn4xhg5zzm33Tm3M9txJOEs4A3n3B+dc1HgUeDSLMeUFOfcWuC9bMcxEM65fc65jW3fHyaeXEZnN6r+ubgjbXeHtX35YgSGmY0B/g74v9mOZcgm8i6uAZ7OdhB5ZjSwp8P9vfggseQDMysDpgG/z24kyWlrT2wC9gPPOud8ETdwN/GN52PZDsSz9chzUV/7jTrnftX2M98h/rH0kUzG1pdk4hbpiZmdBKwEFjrn3s92PMlwzrUCU9uuUz1hZpOcczl9fcLM5gD7nXMNZhbKdjx5nch72280wcyuAuYAs10ODajvL26feAsY2+H+mLbHJE3MbBjxJP6Ic+7xbMczUM65g2a2hvj1iZxO5MC5wFwzuwQoBk4xs4edc1/LRjBDtrViZhcT/1g01zn3QbbjyUPrgTPMbJyZFQH/ADyZ5ZjylsV3QH8Q2O6c+3G240mWmY1MjBgzsxOALwA7shtV/5xzi5xzY9p2RvsH4LlsJXEYwokc+AlwMvCsmW0ysweyHVAyzOxLZrYXCAK/MbPfZTumnrRdSL4R+B3xC2/LnXNbsxtVcszsv4AIMN7M9prZ17MdUxLOBa4Azm/797yprVrMdaOANWb2KvE3/2edc1kdyudHmqIvIuJzQ7kiFxHJC0rkIiI+p0QuIuJzSuQiIj6nRC4i4nNK5CIiPqdELiLic/8fPPwAzRsMmbQAAAAASUVORK5CYII=\n"
+          },
+          "metadata": {
+            "needs_background": "light"
+          }
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from sklearn.preprocessing import StandardScaler\n",
+        "X = StandardScaler().fit_transform(X)"
+      ],
+      "metadata": {
+        "id": "nntWDWwzj0ln"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from sklearn.model_selection import train_test_split"
+      ],
+      "metadata": {
+        "id": "dL-NSRfOj0op"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "X_train, X_test, y_train, y_test = train_test_split(X,y)"
+      ],
+      "metadata": {
+        "id": "r40N9VgBj0rg"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "from sklearn.linear_model import LogisticRegression"
+      ],
+      "metadata": {
+        "id": "hsJGl567j0vO"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "log_reg = LogisticRegression()"
+      ],
+      "metadata": {
+        "id": "_E5qNWJQj0yA"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "log_reg.fit(X_train, y_train)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "GmbAfYz0j01h",
+        "outputId": "14e65e76-1018-480f-aa90-490d7296925a"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "LogisticRegression()"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 52
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "log_reg.score(X_test, y_test)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "X2dALyjFjOlF",
+        "outputId": "afff7d14-c4c4-417e-b9a9-6fb7ac2cdb25"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0.9473684210526315"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 53
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "log_reg.score(X,y)"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "KYEiLApIjOrY",
+        "outputId": "5a3c6b0d-84a9-4c6b-e6b0-44967c9f819a"
+      },
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "execute_result",
+          "data": {
+            "text/plain": [
+              "0.9666666666666667"
+            ]
+          },
+          "metadata": {},
+          "execution_count": 54
+        }
+      ]
+    }
+  ]
+}
